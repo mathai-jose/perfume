@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <style>
+
+        .product-card {
+            border: 1px solid #dee2e6;
+            border-radius: 5px;
+            margin: 10px;
+            padding: 10px;
+            text-align: center; /* Center align text content */
+        }
+
+        .product-image {
+            max-width: 100%;
+            height: auto;
+        }
+
+        .btn-primary {
+            background-color: #007BFF;
+            border-color: #007BFF;
+        }
+
+        .btn-primary:hover {
+            background-color: #0056b3;
+            border-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <a class="navbar-brand" href="#">PERFUME - Admin Page</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav ml-auto">
+            <li class="nav-item">
+                <a class="nav-link" href="admin_view">Home</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="admin_perfumeadd">Add Perfumes</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="{% url 'logout' %}">Logout</a>
+            </li>
+        </ul>
+    </div>
+</nav>
+<!-- ----------------------------- -->
+
+<div class="container mt-5">
+
+
+
+    <div class="container mt-5 table-container">
+        <h2>Perfumes</h2>
+        {% for i in messages %}
+        <div class="alert alert-success" role="alert">
+            {{i}}
+        </div>
+        {%endfor%}
+        <table class="table table-bordered table-striped">
+            <thead class="thead-dark">
+                <tr>
+                    <th>Name</th>
+                    <th>Description</th>
+                    <th>fragrance</th>
+                    <th>Price</th>
+                    <th>Quantity</th>
+                    <th>Image</th>
+                    <th>Edit/Delete</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for i in P %}
+                <tr>
+                    <td>{{i.p_name}}</td>
+                    <td>{{i.p_desc}}</td>
+                    <td>{{i.p_fragrance}}</td>
+                    <td>₹{{i.p_price}}</td>
+                    <td>{{i.p_quantity}}</td>
+                    <td class="responsive-image"><img  src="{{ i.p_image.url }}" alt="Books" class="bvimg img-thumbnail" width=""></td>
+
+                    <td>
+                        <a href="{% url 'admin_perfumeupdate' i.pk %}" class="btn btn-primary btn-sm">Update</a>
+                        <a href="{% url 'admin_perfumedelete' i.pk %}" class="btn btn-danger btn-sm">Delete</a>
+                    
+                    </td>
+
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+
+</body>
+</html>
